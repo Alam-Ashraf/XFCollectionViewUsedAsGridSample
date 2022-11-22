@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="XFCollectionViewUsedAsGrid.MainPage">
+
+    <StackLayout>
+        <Frame BackgroundColor="{StaticResource ColorPrimary}" Padding="24,50,24,24" CornerRadius="0">
+            <Label Text="Collectionview used as Grid" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        </Frame>
+
+        <CollectionView
+                x:Name="BannerList"
+                Margin="2"
+                ItemSizingStrategy="MeasureFirstItem"
+                SelectionMode="None"
+                VerticalOptions="FillAndExpand">
+
+                <!--  Item Template  -->
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+                         <StackLayout
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            Spacing="8"
+                             HeightRequest="200"
+                            VerticalOptions="FillAndExpand">
+
+                              <Frame
+                                    x:Name="FrameContainer"
+                                    Margin="8"
+                                    Padding="0,0,0,0"
+                                    BackgroundColor="{StaticResource ColorWhite}"
+                                    BorderColor="{StaticResource ColorPrimary}"
+                                    CornerRadius="0"
+                                    HasShadow="True"
+                                    IsClippedToBounds="True"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+
+                                    <StackLayout
+                                        HorizontalOptions="FillAndExpand"
+                                        IsClippedToBounds="True"
+                                        Orientation="Vertical"
+                                        Spacing="0"
+                                        VerticalOptions="FillAndExpand">
+
+                                        <BoxView
+                                            BackgroundColor="{Binding HeaderColor}"
+                                            HeightRequest="60"
+                                            Margin="{OnPlatform Android='3,3,5,0', iOS='0,0,0,0'}"
+                                            HorizontalOptions="Fill" />
+
+                                        <!--  Banner Image  -->
+                                        <Frame
+                                            Margin="0,-40,0,0"
+                                            Padding="0"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="{StaticResource ColorWhite}"
+                                            CornerRadius="50"
+                                            HasShadow="True"
+                                            HeightRequest="100"
+                                            HorizontalOptions="CenterAndExpand"
+                                            IsClippedToBounds="True"
+                                            VerticalOptions="Start"
+                                            WidthRequest="100">
+
+
+                                            <Grid>
+
+                                                <ffimageloading:CachedImage
+                                                    x:Name="BannerImage"
+                                                    Aspect="AspectFill"
+                                                    CacheType="All"
+                                                    CacheDuration="10"
+                                                    DownsampleToViewSize="True"
+                                                    HeightRequest="99"
+                                                    IsVisible="{Binding IsLoading}"
+                                                    Source="{Binding ImageUrl}"
+                                                    WidthRequest="99"/>
+                                                   
+                                                <ActivityIndicator
+                                                    BindingContext="{x:Reference Name=BannerImage}"
+                                                    HeightRequest="30"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    IsRunning="True"
+                                                    IsVisible="{Binding IsLoading}"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="30"
+                                                    Color="{StaticResource ColorPrimary}" />
+
+                                            </Grid>
+
+                                        </Frame>
+
+                                        <StackLayout Margin="0,10,0,0">
+
+                                            <Label
+                                                FontSize="16"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding ImageName}"
+                                                TextColor="{StaticResource ColorBlack}" />
+
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                               </Frame>
+
+                         </StackLayout>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+    </StackLayout>
+
+</ContentPage>
+
